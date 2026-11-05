@@ -9,3 +9,4 @@ Route::get('/', function () {
 
 Route::get('/pasien', [PasienController::class, 'index'])->name('pasien.index');
 Route::get('/pasien/create', [PasienController::class, 'create'])->name('pasien.create');
+Route::post('/pasien', [PasienController::class, 'store'])->name('pasien.store');

@@ -2,6 +2,12 @@
 
     <x-slot:title>{{ $title }}</x-slot>
 
+    @if (@session('success'))
+        <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <a class="btn btn-primary" href="{{ route('pasien.create') }}" role="button">Create Pasien</a>
 
     <div class="table-responsive mt-3">
@@ -27,7 +33,7 @@
                         <td>{{ $pasien->no_rekam_medis }}</td>
                         <td>{{ $pasien->nama_pasien }}</td>
                         <td>{{ $pasien->jenis_kelamin }}</td>
-                        <td>{{ $pasien->tanggal_lahir }}</td>
+                        <td>{{ \Carbon\Carbon::parse($pasien->tanggal_lahir)->format('d-m-Y') }}</td>
                         <td>{{ $pasien->alamat }}</td>
                         <td>{{ $pasien->no_telepon }}</td>
                         <td>{{ $pasien->golongan_darah }}</td>

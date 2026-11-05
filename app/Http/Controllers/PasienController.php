@@ -14,7 +14,7 @@ class PasienController extends Controller
     {
         return view('pasien.index', [
             'title' => 'Pasien',
-            'pasiens' => Pasien::all(),
+            'pasiens' => Pasien::latest()->get(),
         ]);
     }
 
@@ -31,7 +31,32 @@ class PasienController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+        'no_rekam_medis' => 'required|numeric|digits:6',
+        'nama_pasien' => 'required',
+        'jenis_kelamin' => 'required',
+        'tanggal_lahir' => 'required',
+        'alamat' => 'required',
+        'no_telepon' => 'required|numeric|digits:12',
+        'golongan_darah' => 'required',
+    ],
+    [
+        'no_rekam_medis.required' => 'No Rekam Medis wajib diisi',
+        'no_rekam_medis.numeric' => 'No Rekam Medis wajib berupa angka',
+        'no_rekam_medis.digits' => 'No Rekam Medis harus memiliki 6 digit',
+        'nama_pasien.required' => 'Nama Pasien wajib diisi',
+        'jenis_kelamin.required' => 'Jenis Kelamin wajib diisi',
+        'tanggal_lahir.required' => 'Tanggal Lahir wajib diisi',
+        'alamat.required' => 'Alamat wajib diisi',
+        'no_telepon.required' => 'No Telepon wajib diisi',
+        'no_telepon.numeric' => 'No Telepon wajib berupa angka',
+        'no_telepon.digits' => 'No Telepon harus memiliki 12 digit',
+        'golongan_darah.required' => 'Golongan Darah wajib diisi',
+    ]);
+
+
+    Pasien::create($validated);
+    return to_route('pasien.index')->withSuccess('Data pasien berhasil ditambahkan');
     }
 
     /**
