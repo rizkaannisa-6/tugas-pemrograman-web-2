@@ -38,9 +38,8 @@
                         <td>{{ $pasien->no_telepon }}</td>
                         <td>{{ $pasien->golongan_darah }}</td>
                         <td>
-
-
-
+                            <a class="btn btn-warning" href="{{ route('pasien.edit', $pasien) }}"
+                                role="button">Edit</a>
                         </td>
                     </tr>
                 @endforeach
